@@ -1,5 +1,10 @@
 var ship;
 var lasers =[];
+var laserSound;
+
+function preload() {
+  laserSound = loadSound('audio/laser.wav');
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -41,6 +46,12 @@ function keyReleased() {
 function keyPressed() {
   if (key == ' '){
     lasers.push(new Laser(ship.pos, ship.heading));
+
+    if (!laserSound.isPlaying()) {
+      laserSound.play();
+    }
+
+
   }else if (keyCode == RIGHT_ARROW){
       ship.setRotation(0.1);
 
