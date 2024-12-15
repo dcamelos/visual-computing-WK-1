@@ -1,6 +1,7 @@
 var ship;
 var lasers =[];
 var laserSound;
+var asteroids = [];
 
 function preload() {
   laserSound = loadSound('audio/laser.wav');
@@ -9,6 +10,9 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   ship = new Ship();
+  for (let i = 0; i < 5; i++) {
+    asteroids.push(new Asteroid());
+  }
 }
 
 function draw() {
@@ -34,7 +38,11 @@ function draw() {
           }
     }*/
   }
-
+  for (let i = asteroids.length - 1; i >= 0; i--) {
+        asteroids[i].update();
+        asteroids[i].show();
+        asteroids[i].edges();
+    }
 }
 
 
