@@ -55,6 +55,18 @@ class Ship{
         this.rotation = angle;
     }
 
+    hits(asteroid){
+        var d=dist(this.pos.x, this.pos.y,
+            asteroid.pos.x, asteroid.pos.y)
+        if (d < this.r + asteroid.r){
+            collisionSound.play();
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
 
     edges(){
         if (this.pos.x > width + this.r)
