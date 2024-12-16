@@ -34,7 +34,12 @@ class Asteroid {
     endShape(CLOSE);
     pop();
   }
-
+  breakup(){
+    var newA=[];
+    newA[0]= new Asteroid(this.pos,this.r);
+    newA[1]= new Asteroid(this.pos, this.r);
+    return newA;
+  }
   edges() {
     if (this.pos.x > width + this.r) this.pos.x = -this.r;
     else if (this.pos.x < -this.r) this.pos.x = width + this.r;

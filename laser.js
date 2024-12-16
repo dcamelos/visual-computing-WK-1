@@ -14,14 +14,14 @@ function Laser (spos, angle){
     pop();
   }
 
-  /*this.hits = function(asteroid){
+  this.hits = function(asteroid){
     var d = dist(this.pos.x, this.pos.y,
                  asteroid.pos.x, asteroid.pos.y);
-    if (d < asteroids.r){
+    if (d < asteroid.r){
       return true;
     } else {
       return false;
     }
 
-  } */
+  }
 }
