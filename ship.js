@@ -31,7 +31,7 @@ class Ship{
         }
         this.turn();
         this.pos.add(this.vel);
-        this.vel.mult(0.97);
+        this.vel.mult(0.93);
         this.edges();
     }
 
@@ -90,7 +90,6 @@ class Ship{
         rotate(this.heading + PI/2);
         let arcCenter = createVector((x2 + x3)/2, (y2 + y3)/2);
         stroke(255);
-        fill(255);
         noFill();
         line(x1, y1, x2, y2);
         line(x1, y1, x3, y3);
