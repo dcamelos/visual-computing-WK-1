@@ -1,4 +1,5 @@
 var ship;
+var alien;
 var lasers =[];
 var laserSound;
 var asteroids = [];
@@ -10,6 +11,7 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   ship = new Ship();
+  alien = new Alien();
   for (let i = 0; i < 5; i++) {
     asteroids.push(new Asteroid());
   }
@@ -19,6 +21,8 @@ function draw() {
   background(0);
   ship.show();
   ship.update();
+  alien.show();
+  alien.update();
 
   for (var i = lasers.length - 1 ; i  >= 0; i--){
     lasers[i].render();
@@ -47,8 +51,16 @@ function draw() {
 
 
 function keyReleased() {
-    ship.setRotation(0);
-    ship.boosting(false)
+    if (keyIsDown(UP_ARROW) && (keyIsDown(LEFT_ARROW) == false || keyIsDown(RIGHT_ARROW) == false)){
+      ship.setRotation(0);
+    }
+    else if (keyIsDown(UP_ARROW) == false && (keyIsDown(LEFT_ARROW)|| keyIsDown(RIGHT_ARROW))){
+      ship.boosting(false);
+    }
+    else if (keyIsDown(UP_ARROW) == false&& (keyIsDown(LEFT_ARROW) == false || keyIsDown(RIGHT_ARROW) == false)){
+      ship.setRotation(0);
+      ship.boosting(false);
+    }
 }
 
 function keyPressed() {
@@ -60,13 +72,17 @@ function keyPressed() {
     }
 
 
-  }else if (keyCode == RIGHT_ARROW){
+  }if (keyCode == RIGHT_ARROW){
+    if (keyIsDown(LEFT_ARROW) == false){
       ship.setRotation(0.1);
+    }
 
-  }else if (keyCode == LEFT_ARROW){
+  }if (keyCode == LEFT_ARROW){
+    if (keyIsDown(RIGHT_ARROW) == false){
       ship.setRotation(-0.1);
+    }
 
-  }else if (keyCode == UP_ARROW){
+  }if (keyCode == UP_ARROW){
     ship.boosting(true);
 
   }
