@@ -2,11 +2,13 @@ var ship;
 var lasers =[];
 var laserSound;
 var asteroids = [];
+//var  gameFont;
 
 function preload() {
   laserSound = loadSound('audio/laser.wav');
   hitSound = loadSound('audio/hit.m4a');
   collisionSound = loadSound ('audio/bang_lg.wav');
+  //gameFont = loadFont('PressStart2P-Regular.ttf');
 }
 
 function setup() {
@@ -19,10 +21,16 @@ function setup() {
 
 function draw() {
   background(0);
+   /*if (gameState === "MENU") {
+    drawMenu();
+  } else if (gameState === "PLAYING") {
+    playGame();
+  } else if (gameState === "GAMEOVER") {
+    drawGameOver();
+  }*/
+  
   ship.show();
   ship.update();
-
-
   for (var i = lasers.length - 1; i >= 0; i--){
     lasers[i].render();
     lasers[i].update();
@@ -45,6 +53,7 @@ function draw() {
 
   for (let i = asteroids.length - 1; i >= 0; i--) {
         if (ship.hits(asteroids[i])){
+          //gameState = "GAMEOVER";
           console.log('opps');
 
         }
@@ -52,6 +61,7 @@ function draw() {
         asteroids[i].show();
         asteroids[i].edges();
     }
+   //drawScore();
 }
 
 
@@ -61,6 +71,12 @@ function keyReleased() {
 }
 
 function keyPressed() {
+
+  /*if (gameState === "MENU" && keyCode === ENTER) {
+    startGame();
+  } else if (gameState === "GAMEOVER" && keyCode === ENTER) {
+    resetGame();
+  } else if (gameState === "PLAYING")*/ 
   if (key == ' '){
     lasers.push(new Laser(ship.pos, ship.heading));
 
@@ -80,3 +96,52 @@ function keyPressed() {
 
   }
 }
+
+
+
+/*function drawMenu() {
+  
+  background(0);
+  for (let i = asteroids.length - 1; i >= 0; i--) {
+    asteroids[i].update();
+    asteroids[i].show();
+    asteroids[i].edges();
+  }
+  fill(255);
+  textFont( gameFont); 
+  textAlign(CENTER);
+  textSize(32);
+  text("ASTEROIDS", width / 2, height / 2 - 40);
+  textSize(16); 
+  text("Press ENTER to Start", width / 2, height / 2 + 20);
+}
+
+
+function drawGameOver() {
+  fill(255);
+  textFont( gameFont); 
+  textAlign(CENTER);
+  textSize(32);
+  text("GAME OVER", width / 2, height / 2 - 40);
+  textSize(16);
+  text(`Final Score: ${score}`, width / 2, height / 2);
+  text("Press ENTER to Return to Menu", width / 2, height / 2 + 40);
+}
+
+
+function drawScore() {
+  fill(255);
+  textFont( gameFont); /
+  textAlign(LEFT);
+  textSize(16);
+  text(`Score: ${score}`, 10, 20);
+}
+
+function startGame() {
+  gameState = "PLAYING";
+  score = 0;
+}
+
+function resetGame() {
+  gameState = "MENU";
+}*/
