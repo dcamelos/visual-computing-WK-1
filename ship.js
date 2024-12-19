@@ -57,20 +57,17 @@ class Ship{
 
 
     edges(){
-        if (this.pos.x > width + this.r)
-        {
+        if (this.pos.x > windowWidth + this.r){
             this.pos.x = - this.r;
         }
         else if (this.pos.x < -this.r){
-            this.pos.x = width + this.r;
+            this.pos.x = windowWidth + this.r;
         }
-
-        if (this.pos.y > height+ this.r)
-        {
+        if (this.pos.y > windowHeight+ this.r){
             this.pos.y = - this.r;
         }
         else if (this.pos.y < -this.r){
-            this.pos.y = height + this.r;
+            this.pos.y = windowHeight + this.r;
         }
     }
 
