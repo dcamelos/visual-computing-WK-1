@@ -10,6 +10,7 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  frameRate(60);
   ship = new Ship();
   alien = new Alien();
   for (let i = 0; i < 5; i++) {
@@ -74,12 +75,12 @@ function keyPressed() {
 
   }if (keyCode == RIGHT_ARROW){
     if (keyIsDown(LEFT_ARROW) == false){
-      ship.setRotation(0.1);
+      ship.setRotation(PI/50);
     }
 
   }if (keyCode == LEFT_ARROW){
     if (keyIsDown(RIGHT_ARROW) == false){
-      ship.setRotation(-0.1);
+      ship.setRotation(-PI/50);
     }
 
   }if (keyCode == UP_ARROW){
