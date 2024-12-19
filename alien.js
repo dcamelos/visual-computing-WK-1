@@ -5,9 +5,8 @@ class Alien{
 
         this.size = this.determineSize();
         this.defineStart = Math.floor(Math.random() * 4);
-
-        //this.timeToSpawn = Math.floor(Math.random() * 200) + 300 ;
-        this.timeToSpawn = 0;
+        this.timeToSpawn = Math.floor(Math.random() * 200) + 300 ;
+        //this.timeToSpawn = 0; //for testing
         this.isFirstTime = true;
         this.isActive = false;
         this.timeToChangeDirection = 100;
