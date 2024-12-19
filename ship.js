@@ -31,7 +31,7 @@ class Ship{
         }
         this.turn();
         this.pos.add(this.vel);
-        this.vel.mult(0.97);
+        this.vel.mult(0.93);
         this.edges();
     }
 
@@ -69,20 +69,17 @@ class Ship{
 
 
     edges(){
-        if (this.pos.x > width + this.r)
-        {
+        if (this.pos.x > windowWidth + this.r){
             this.pos.x = - this.r;
         }
         else if (this.pos.x < -this.r){
-            this.pos.x = width + this.r;
+            this.pos.x = windowWidth + this.r;
         }
-
-        if (this.pos.y > height+ this.r)
-        {
+        if (this.pos.y > windowHeight+ this.r){
             this.pos.y = - this.r;
         }
         else if (this.pos.y < -this.r){
-            this.pos.y = height + this.r;
+            this.pos.y = windowHeight + this.r;
         }
     }
 
@@ -102,7 +99,6 @@ class Ship{
         rotate(this.heading + PI/2);
         let arcCenter = createVector((x2 + x3)/2, (y2 + y3)/2);
         stroke(255);
-        fill(255);
         noFill();
         line(x1, y1, x2, y2);
         line(x1, y1, x3, y3);
