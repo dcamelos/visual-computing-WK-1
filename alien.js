@@ -7,8 +7,8 @@ class Alien{
         //basically the constructor but is callable
         this.r = this.determineSize();
         this.defineStart = Math.floor(Math.random() * 4);
-        //this.timeToSpawn = Math.floor(Math.random() * 300) + 500 ;
-        this.timeToSpawn = 0; //for testing
+        this.timeToSpawn = Math.floor(Math.random() * 300) + 500 ;
+        //this.timeToSpawn = 0; //for testing
         this.isFirstTimeInScreen = true;
         this.isActive = false;
         this.timeToChangeDirection = 100;
