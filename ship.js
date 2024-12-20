@@ -1,4 +1,5 @@
 class Ship{
+
     constructor(){
         this.pos = createVector(windowWidth/2, windowHeight/2);
         this.r = 20;
@@ -7,8 +8,6 @@ class Ship{
         this.vel = createVector(0,0);
         this.acc = createVector(0,0);
         this.isBoosting = false;
-
-
    }
 
     show(){
@@ -31,7 +30,7 @@ class Ship{
         }
         this.turn();
         this.pos.add(this.vel);
-        this.vel.mult(0.93);
+        this.vel.mult(0.965);
         this.edges();
     }
 
@@ -64,7 +63,6 @@ class Ship{
         }else{
             return false;
         }
-
     }
 
 
