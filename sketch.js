@@ -34,7 +34,7 @@ function draw() {
   } else if (gameState === "GAMEOVER") {
     drawGameOver();
   }*/
-  
+
   ship.show();
   ship.update();
   alien.show();
@@ -45,14 +45,17 @@ function draw() {
     lasers[i].update();
     //por alguna razon, si mando este codigo, se manda game over.
     //si alguien puede ayudarme estaria profundamente agradecido.
-    /*
 
-    if (lasers[i].hit(alien)){
-      alien.restartValues();
-    }
-    */
+
+
+
 
     if (lasers[i] && lasers[i].offscreen()){
+      lasers.splice(i, 1);
+
+    }else if (alien.isActive && lasers[i].hits(alien)) {
+      hitSound.play();
+      alien.restartValues();
       lasers.splice(i, 1);
     }else{
     for(var j = asteroids.length - 1; j >= 0; j--){
@@ -94,7 +97,7 @@ function draw() {
         angle -= PI;
       }
     }
-    
+
     alienLasers.push(new Laser(alien.pos, angle));
 
     if (!laserSound.isPlaying()) {
@@ -132,7 +135,7 @@ function draw() {
       }
     }}
   }
-    
+
    //drawScore();
 }
 
@@ -156,7 +159,7 @@ function keyPressed() {
     startGame();
   } else if (gameState === "GAMEOVER" && keyCode === ENTER) {
     resetGame();
-  } else if (gameState === "PLAYING")*/ 
+  } else if (gameState === "PLAYING")*/
   if (key == ' '){
     lasers.push(new Laser(ship.pos, ship.heading));
 
@@ -184,7 +187,7 @@ function keyPressed() {
 
 
 /*function drawMenu() {
-  
+
   background(0);
   for (let i = asteroids.length - 1; i >= 0; i--) {
     asteroids[i].update();
@@ -192,18 +195,18 @@ function keyPressed() {
     asteroids[i].edges();
   }
   fill(255);
-  textFont( gameFont); 
+  textFont( gameFont);
   textAlign(CENTER);
   textSize(32);
   text("ASTEROIDS", width / 2, height / 2 - 40);
-  textSize(16); 
+  textSize(16);
   text("Press ENTER to Start", width / 2, height / 2 + 20);
 }
 
 
 function drawGameOver() {
   fill(255);
-  textFont( gameFont); 
+  textFont( gameFont);
   textAlign(CENTER);
   textSize(32);
   text("GAME OVER", width / 2, height / 2 - 40);
