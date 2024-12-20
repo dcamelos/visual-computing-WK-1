@@ -5,13 +5,15 @@ var alienLasers = [];
 var alienLaserCooldown;
 var laserSound;
 var asteroids = [];
-//var  gameFont;
+var  gameFont;
+var gameState ='MENU';
+var score = 0
 
 function preload() {
-  laserSound = loadSound('audio/laser.wav');
-  hitSound = loadSound('audio/hit.m4a');
-  collisionSound = loadSound ('audio/bang_lg.wav');
-  //gameFont = loadFont('PressStart2P-Regular.ttf');
+  laserSound = loadSound('laser.wav');
+  hitSound = loadSound('hit.m4a');
+  collisionSound = loadSound ('bang_lg.wav');
+  gameFont = loadFont('PressStart2P-Regular.ttf');
 }
 
 function setup() {
@@ -27,15 +29,20 @@ function setup() {
 
 function draw() {
   background(0);
-   /*if (gameState === "MENU") {
+   if (gameState === "MENU") {
     drawMenu();
   } else if (gameState === "PLAYING") {
     playGame();
   } else if (gameState === "GAMEOVER") {
     drawGameOver();
-  }*/
+  }
 
-  ship.show();
+
+}
+
+
+function playGame(){
+    ship.show();
   ship.update();
   alien.show();
   alien.update();
@@ -45,10 +52,6 @@ function draw() {
     lasers[i].update();
     //por alguna razon, si mando este codigo, se manda game over.
     //si alguien puede ayudarme estaria profundamente agradecido.
-
-
-
-
 
     if (lasers[i] && lasers[i].offscreen()){
       lasers.splice(i, 1);
@@ -60,6 +63,7 @@ function draw() {
     }else{
     for(var j = asteroids.length - 1; j >= 0; j--){
       if (lasers[i].hits(asteroids[j])){
+        score += 10;
         if (asteroids[j].r > 20){
           var newAsteroids = asteroids[j].breakup();
           asteroids = asteroids.concat(newAsteroids);
@@ -74,7 +78,7 @@ function draw() {
 
   for (let i = asteroids.length - 1; i >= 0; i--) {
     if (ship.hits(asteroids[i])){
-      //gameState = "GAMEOVER";
+      gameState = "GAMEOVER";
       console.log('opps');
     }
     if (alien.hits(asteroids[i])){
@@ -116,7 +120,7 @@ function draw() {
     alienLasers[i].render();
     alienLasers[i].update();
     if (alienLasers[i].hits(ship)){
-      //gameState = "GAMEOVER";
+      gameState = "GAMEOVER";
       console.log('opps');
     }
     if (alienLasers[i] && alienLasers[i].offscreen()){
@@ -136,9 +140,9 @@ function draw() {
     }}
   }
 
-   //drawScore();
+   drawScore();
+  
 }
-
 
 function keyReleased() {
     if (keyIsDown(UP_ARROW) && (keyIsDown(LEFT_ARROW) == false || keyIsDown(RIGHT_ARROW) == false)){
@@ -155,11 +159,11 @@ function keyReleased() {
 
 function keyPressed() {
 
-  /*if (gameState === "MENU" && keyCode === ENTER) {
+  if (gameState === "MENU" && keyCode === ENTER) {
     startGame();
   } else if (gameState === "GAMEOVER" && keyCode === ENTER) {
     resetGame();
-  } else if (gameState === "PLAYING")*/
+  } else if (gameState === "PLAYING")
   if (key == ' '){
     lasers.push(new Laser(ship.pos, ship.heading));
 
@@ -186,7 +190,7 @@ function keyPressed() {
 
 
 
-/*function drawMenu() {
+function drawMenu() {
 
   background(0);
   for (let i = asteroids.length - 1; i >= 0; i--) {
@@ -218,7 +222,7 @@ function drawGameOver() {
 
 function drawScore() {
   fill(255);
-  textFont( gameFont); /
+  textFont( gameFont); 
   textAlign(LEFT);
   textSize(16);
   text(`Score: ${score}`, 10, 20);
@@ -231,4 +235,4 @@ function startGame() {
 
 function resetGame() {
   gameState = "MENU";
-}*/
+}
