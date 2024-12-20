@@ -1,6 +1,8 @@
 var ship;
 var alien;
 var lasers =[];
+var alienLasers = [];
+var alienLaserCooldown;
 var laserSound;
 var asteroids = [];
 //var  gameFont;
@@ -17,6 +19,7 @@ function setup() {
   frameRate(60);
   ship = new Ship();
   alien = new Alien();
+  alienLaserCooldown = 60;
   for (let i = 0; i < 5; i++) {
     asteroids.push(new Asteroid());
   }
@@ -40,10 +43,18 @@ function draw() {
   for (var i = lasers.length - 1 ; i  >= 0; i--){
     lasers[i].render();
     lasers[i].update();
+    //por alguna razon, si mando este codigo, se manda game over.
+    //si alguien puede ayudarme estaria profundamente agradecido.
+    /*
+
+    if (lasers[i].hit(alien)){
+      alien.restartValues();
+    }
+    */
+
     if (lasers[i] && lasers[i].offscreen()){
       lasers.splice(i, 1);
     }else{
-
     for(var j = asteroids.length - 1; j >= 0; j--){
       if (lasers[i].hits(asteroids[j])){
         if (asteroids[j].r > 20){
@@ -53,20 +64,75 @@ function draw() {
         asteroids.splice(j, 1);
         lasers.splice(i, 1);
         break;
+        }
       }
-    }}
+    }
   }
 
   for (let i = asteroids.length - 1; i >= 0; i--) {
-        if (ship.hits(asteroids[i])){
-          //gameState = "GAMEOVER";
-          console.log('opps');
-
-        }
-        asteroids[i].update();
-        asteroids[i].show();
-        asteroids[i].edges();
+    if (ship.hits(asteroids[i])){
+      //gameState = "GAMEOVER";
+      console.log('opps');
     }
+    if (alien.hits(asteroids[i])){
+      alien.restartValues();
+    }
+    asteroids[i].update();
+    asteroids[i].show();
+    asteroids[i].edges();
+  }
+
+  if (alien.isActive == true){
+  if (alienLaserCooldown <= 0){
+    var direction = createVector(ship.pos.x - alien.pos.x, ship.pos.y - alien.pos.y);
+    var angle = Math.atan(direction.y/direction.x);   //radians
+    if (ship.pos.x <= alien.pos.x){
+      if(ship.pos.y > alien.pos.y){
+        angle += PI;
+      }
+      else if(ship.pos.y <= alien.pos.y){
+        angle -= PI;
+      }
+    }
+    
+    alienLasers.push(new Laser(alien.pos, angle));
+
+    if (!laserSound.isPlaying()) {
+      laserSound.play();
+    }
+    alienLaserCooldown = 60;
+  }
+  else{
+    alienLaserCooldown -= 1;
+  }
+  }
+
+
+
+  for (var i = alienLasers.length - 1 ; i  >= 0; i--){
+    alienLasers[i].render();
+    alienLasers[i].update();
+    if (alienLasers[i].hits(ship)){
+      //gameState = "GAMEOVER";
+      console.log('opps');
+    }
+    if (alienLasers[i] && alienLasers[i].offscreen()){
+      alienLasers.splice(i, 1);
+    }else{
+
+    for(var j = asteroids.length - 1; j >= 0; j--){
+      if (alienLasers[i].hits(asteroids[j])){
+        if (asteroids[j].r > 20){
+          var newAsteroids = asteroids[j].breakup();
+          asteroids = asteroids.concat(newAsteroids);
+        }
+        asteroids.splice(j, 1);
+        alienLasers.splice(i, 1);
+        break;
+      }
+    }}
+  }
+    
    //drawScore();
 }
 
@@ -101,12 +167,12 @@ function keyPressed() {
 
   }if (keyCode == RIGHT_ARROW){
     if (keyIsDown(LEFT_ARROW) == false){
-      ship.setRotation(PI/50);
+      ship.setRotation(PI/36);
     }
 
   }if (keyCode == LEFT_ARROW){
     if (keyIsDown(RIGHT_ARROW) == false){
-      ship.setRotation(-PI/50);
+      ship.setRotation(-PI/36);
     }
 
   }if (keyCode == UP_ARROW){
