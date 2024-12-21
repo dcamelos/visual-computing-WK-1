@@ -13,7 +13,7 @@ function preload() {
   laserSound = loadSound('laser.wav');
   hitSound = loadSound('hit.m4a');
   collisionSound = loadSound ('bang_lg.wav');
-  gameFont = loadFont('PressStart2P-Regular.ttf');
+  gameFont = loadFont('Fonts/PressStart2P-Regular.ttf');
 }
 
 function setup() {
