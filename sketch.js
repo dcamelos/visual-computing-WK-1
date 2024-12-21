@@ -6,13 +6,13 @@ var alienLaserCooldown;
 var laserSound;
 var asteroids = [];
 var  gameFont;
-var gameState ='MENU';
-var score = 0
+var gameState = "MENU";
+var score = 0;
 
 function preload() {
-  laserSound = loadSound('laser.wav');
-  hitSound = loadSound('hit.m4a');
-  collisionSound = loadSound ('bang_lg.wav');
+  laserSound = loadSound('audio/laser.wav');
+  hitSound = loadSound('audio/hit.m4a');
+  collisionSound = loadSound ('audio/bang_lg.wav');
   gameFont = loadFont('Fonts/PressStart2P-Regular.ttf');
 }
 
@@ -36,13 +36,11 @@ function draw() {
   } else if (gameState === "GAMEOVER") {
     drawGameOver();
   }
-
-
 }
 
 
 function playGame(){
-    ship.show();
+  ship.show();
   ship.update();
   alien.show();
   alien.update();
@@ -50,8 +48,6 @@ function playGame(){
   for (var i = lasers.length - 1 ; i  >= 0; i--){
     lasers[i].render();
     lasers[i].update();
-    //por alguna razon, si mando este codigo, se manda game over.
-    //si alguien puede ayudarme estaria profundamente agradecido.
 
     if (lasers[i] && lasers[i].offscreen()){
       lasers.splice(i, 1);
@@ -63,7 +59,7 @@ function playGame(){
     }else{
     for(var j = asteroids.length - 1; j >= 0; j--){
       if (lasers[i].hits(asteroids[j])){
-        score += 10;
+        score += 10
         if (asteroids[j].r > 20){
           var newAsteroids = asteroids[j].breakup();
           asteroids = asteroids.concat(newAsteroids);
@@ -141,8 +137,8 @@ function playGame(){
   }
 
    drawScore();
-  
 }
+
 
 function keyReleased() {
     if (keyIsDown(UP_ARROW) && (keyIsDown(LEFT_ARROW) == false || keyIsDown(RIGHT_ARROW) == false)){
@@ -204,7 +200,10 @@ function drawMenu() {
   textSize(32);
   text("ASTEROIDS", width / 2, height / 2 - 40);
   textSize(16);
-  text("Press ENTER to Start", width / 2, height / 2 + 20);
+  text("Press      to start", width / 2, height / 2 + 20);
+  if (frameCount % 30 < 15) { 
+  text("ENTER ", width / 2 -15, height / 2 + 20);
+}
 }
 
 
@@ -231,8 +230,14 @@ function drawScore() {
 function startGame() {
   gameState = "PLAYING";
   score = 0;
+  ship = new Ship(); 
+  asteroids = []; 
+  alien = new Alien();
+  lasers = []; 
+  for (let i = 0; i < 5; i++) {
+    asteroids.push(new Asteroid());
+  }
 }
-
 function resetGame() {
   gameState = "MENU";
 }
