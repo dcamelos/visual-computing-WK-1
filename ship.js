@@ -64,6 +64,17 @@ class Ship{
             return false;
         }
     }
+    
+     hits(alien) {
+        var d = dist(this.pos.x, this.pos.y, 
+            alien.pos.x, alien.pos.y);
+            if (d < this.r + alien.r){
+                collisionSound.play();
+                return true;
+            }else{
+                return false;
+      }
+    }
 
 
     edges(){
