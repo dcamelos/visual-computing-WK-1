@@ -1,18 +1,24 @@
 class Asteroid {
   constructor(pos, r) {
-    if (pos) {
-      this.pos = pos.copy();
-    } else {
+  if (pos) {
+    this.pos = pos.copy();
+  } else {
+    let x, y;
+    const center = 150; 
+    const centerX = width/2;
+    const centerY = height/2;
+    do {
       this.pos = createVector(random(width), random(height));
-    }
-    this.v = p5.Vector.random2D();
-    this.r = r || random(30, 50);
-    this.totalVertices = floor(random(5, 15));
-    this.offset = [];
-    for (let i = 0; i < this.totalVertices; i++) {
-      this.offset[i] = random(-this.r * 0.5, this.r * 0.5);
-    }
+    } while (dist(x, y, centerX, centerY) < center);
   }
+  this.v = p5.Vector.random2D();
+  this.r = r || random(30, 50);
+  this.totalVertices = floor(random(5, 15));
+  this.offset = [];
+  for (let i = 0; i < this.totalVertices; i++) {
+    this.offset[i] = random(-this.r * 0.5, this.r * 0.5);
+  }
+}
 
   update() {
     this.pos.add(this.v);
