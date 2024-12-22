@@ -53,7 +53,6 @@ function playGame(){
       lasers.splice(i, 1);
 
     }else if (alien.isActive && lasers[i].hits(alien)) {
-      score += 30
       hitSound.play();
       alien.restartValues();
       lasers.splice(i, 1);
@@ -71,11 +70,6 @@ function playGame(){
         }
       }
     }
-  }
-
-  if (ship.hits(alien)) {
-    gameState = "GAMEOVER";
-    console.log('opps');
   }
 
   for (let i = asteroids.length - 1; i >= 0; i--) {
@@ -240,7 +234,6 @@ function startGame() {
   asteroids = []; 
   alien = new Alien();
   lasers = []; 
-  alienLasers =[];
   for (let i = 0; i < 5; i++) {
     asteroids.push(new Asteroid());
   }
