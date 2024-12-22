@@ -2,4 +2,4 @@
 
 Replica del juego Asteroids, en p5.js.
 
-Enlace para jugar: https://dcamelos.github.io/visual-computing-WK-1/
+Enlace para jugar: https://visual-computing.vercel.app/asteroids
